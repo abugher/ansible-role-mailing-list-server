@@ -1,3 +1,18 @@
 ---
+# mailman3 seems to insist on running a REST API.  No specified password means
+# it will use the default password.
+admin_pass:                     "{{ lookup('community.general.passwordstore', 'aaron/neuron-mail/mailman_password') }}"
 install_packages:
+  - 'mailman3'
+template_files:
+  - owner:                      'root'
+    group:                      'list'
+    mode:                       '0640'
+    src:                        'templates/mailman.cfg.j2'
+    dest:                       '/etc/mailman3/mailman.cfg'
+enable_services:
+  - 'mailman3'
+restart_services:
+  - 'mailman3'
+start_services:
   - 'mailman3'

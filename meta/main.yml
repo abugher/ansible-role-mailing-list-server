@@ -1,5 +1,8 @@
 ---
 dependencies:
+  - role:     'ssl-client'
+    tags:     
+      - 'dependency'
   - role:     'mail-server'
     tags:     
       - 'dependency'
