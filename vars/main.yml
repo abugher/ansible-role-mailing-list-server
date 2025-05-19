@@ -1,9 +1,19 @@
 ---
 # mailman3 seems to insist on running a REST API.  No specified password means
 # it will use the default password.
-admin_pass:                     "{{ lookup('community.general.passwordstore', 'aaron/neuron-mail/mailman_password') }}"
+admin_pass:                     "{{ lookup('community.general.passwordstore', 'aaron/neuron-mail/mailman_admin_password') }}"
+mailman_system_password:        "{{ lookup('community.general.passwordstore', 'aaron/neuron-mail/mailman_system_password') }}"
 install_packages:
   - 'mailman3'
+# mailman software runs as user "list", but retains credentials for user
+# "mailman", to authenticate over SMTP for postfix.
+user_groups:
+  - 'mailman'
+users:
+  - 'mailman'
+shell_commands:
+  - command:                    chpasswd <<< 'mailman:{{ mailman_system_password }}'
+    executable:                 "/bin/bash"
 template_files:
   - owner:                      'root'
     group:                      'list'

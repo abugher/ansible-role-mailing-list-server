@@ -253,10 +253,9 @@ outgoing: mailman.mta.deliver.deliver
 # then Mailman will attempt to log into the MTA when making a new connection.
 smtp_host: {{ groups['mail-server'][0] }}.{{ domain }}
 smtp_secure_mode: starttls
-#smtp_host: 127.0.0.1
 smtp_port: 25
-#smtp_user:
-#smtp_pass:
+smtp_user: mailman
+smtp_pass: {{ mailman_system_password }}
 
 # Where the LMTP server listens for connections.  Use 127.0.0.1 instead of
 # localhost for Postfix integration, because Postfix only consults DNS

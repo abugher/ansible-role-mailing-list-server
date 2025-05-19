@@ -16,6 +16,12 @@ Create a new list:
 
     sudo -u list mailman create testlist@bugher.net
 
+Create necessary aliases for the new list:
+
+    list_short_name=testlist; sudo -u list awk -F '@' "/^${list_short_name}"'[@-]/ {print $1":mailman"}' /var/lib/mailman3/data/postfix_lmtp | sudo -u mail tee -a /etc/postfix/external-aliases/list-aliases
+    sudo newaliases
+
 Add a member to a list:
 
+    # Usually it is better to send mail to testlist-subscribe@bugher.net.
     sudo -u list mailman addmembers - testlist@bugher.net <<< aaron@bugher.net
