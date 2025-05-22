@@ -11,6 +11,7 @@ user_groups:
   - 'mailman'
 users:
   - 'mailman'
+# This puts the password on the screen.  It would be cool if it did not.
 shell_commands:
   - command:                    chpasswd <<< 'mailman:{{ mailman_system_password }}'
     executable:                 "/bin/bash"
